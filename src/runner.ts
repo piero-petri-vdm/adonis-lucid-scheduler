@@ -20,7 +20,7 @@ export class Runner implements RunnerInterface {
     protected database: Database,
     protected prefixJobName: string,
     jobModel: DBJobModel,
-    jobHandler: typeof JobHandler
+    jobHandler: new () => JobHandler
   ) {
     this.jobModel = jobModel
     this.jobHandler = new jobHandler()

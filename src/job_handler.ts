@@ -1,4 +1,4 @@
-import { JobHandlerInterface, JobParams } from '../types/index.js'
+import { JobHandlerInterface, JobParams } from '@adonisjs/core/types'
 
 export abstract class JobHandler implements JobHandlerInterface {
   abstract handle(param?: JobParams): void

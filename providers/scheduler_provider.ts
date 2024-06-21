@@ -1,7 +1,7 @@
 import { SchedulerConfig } from '#types/index'
 import { ApplicationService } from '@adonisjs/core/types'
 import { scheduleJob } from 'node-schedule'
-
+import { JobHandler } from '@adonisjs/core/types'
 /**
  * Scheduler service provider
  */
@@ -12,12 +12,12 @@ export default class SchedulerProvider {
 
   private registerJob() {
     this.app.container.bind('Vidiemme/Scheduler/Job', async () => {
-      const { JobHandler } = await import('#src/job_handler')
+      const { JobHandler: handler } = await import('#src/job_handler')
       const { DBJobModel } = await import('#src/job_model')
       const { JobMap } = await import('#src/job_map')
 
       return {
-        JobHandler,
+        JobHandler: handler as new () => JobHandler,
         DBJobModel,
         JobMap,
       }
@@ -49,7 +49,8 @@ export default class SchedulerProvider {
 
   private registerCommand() {
     this.app.container.bind('Vidiemme/Scheduler/Commands', async () => {
-      return import('#commands/scheduler_command')
+      const command = await import('#commands/scheduler_command')
+      return command.default
     })
   }
 
@@ -66,8 +67,8 @@ export default class SchedulerProvider {
   /**
    * Called when all bindings are in place
    */
-  boot(): void {
-    const { Scheduler } = this.app.container.make('Vidiemme/Scheduler/Scheduler')
+  async boot(): Promise<void> {
+    const { Scheduler } = await this.app.container.make('Vidiemme/Scheduler/Scheduler')
     scheduleJob('* * * * *', Scheduler.extractJobs.bind(Scheduler))
   }
 }
