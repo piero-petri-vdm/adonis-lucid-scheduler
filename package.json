@@ -17,6 +17,14 @@
     ".": "./build/index.js",
     "./types": "./build/src/types.js"
   },
+  "imports": {
+    "#commands/*": "./commands/*.js",
+    "#providers/*": "./providers/*.js",
+    "#src/*": "./src/*.js",
+    "#tests/*": "./tests/*.js",
+    "#types/*": "./types/*.js",
+    "#config/*": "./config/*.js"
+  },
   "scripts": {
     "clean": "del-cli build",
     "copy:templates": "copyfiles \"stubs/**/*.stub\" build",
@@ -32,14 +40,6 @@
     "release": "np",
     "version": "npm run build",
     "prepublishOnly": "npm run build"
-  },
-  "imports": {
-    "#commands/*": "./commands/*.js",
-    "#providers/*": "./providers/*.js",
-    "#src/*": "./src/*.js",
-    "#tests/*": "./tests/*.js",
-    "#types/*": "./types/*.js",
-    "#config/*": "./config/*.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.7.0",
@@ -63,6 +63,13 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
+  "dependencies": {
+    "@adonisjs/lucid": "^21.1.0",
+    "cron-parser": "^4.9.0",
+    "luxon": "^3.4.4",
+    "md5": "^2.3.0",
+    "node-schedule": "^2.1.1"
+  },
   "peerDependencies": {
     "@adonisjs/core": "^6.2.0",
     "@adonisjs/lucid": "^21.1.0"
@@ -70,6 +77,10 @@
   "author": "Vidiemme",
   "license": "MIT",
   "keywords": [],
+  "eslintConfig": {
+    "extends": "@adonisjs/eslint-config/package"
+  },
+  "prettier": "@adonisjs/prettier-config",
   "publishConfig": {
     "access": "public",
     "tag": "latest"
@@ -80,9 +91,6 @@
     "branch": "main",
     "anyBranch": false
   },
-  "eslintConfig": {
-    "extends": "@adonisjs/eslint-config/package"
-  },
   "c8": {
     "reporter": [
       "text",
@@ -91,13 +99,5 @@
     "exclude": [
       "tests/**"
     ]
-  },
-  "prettier": "@adonisjs/prettier-config",
-  "dependencies": {
-    "@adonisjs/lucid": "^21.1.0",
-    "cron-parser": "^4.9.0",
-    "luxon": "^3.4.4",
-    "md5": "^2.3.0",
-    "node-schedule": "^2.1.1"
   }
 }

@@ -8,7 +8,7 @@ import { LoggerConfig } from '@adonisjs/core/types/logger'
 import { DBJobModel } from '#src/job_model'
 import { RunnerInterface } from '#types/index'
 import { Database } from '@adonisjs/lucid/database'
-import { JobHandler } from '@adonisjs/core/types'
+import { JobHandler } from '#src/job_handler'
 
 export class Runner implements RunnerInterface {
   protected jobName: string
@@ -20,10 +20,10 @@ export class Runner implements RunnerInterface {
     protected database: Database,
     protected prefixJobName: string,
     jobModel: DBJobModel,
-    jobHandler: typeof JobHandler
+    jobHandler: JobHandler
   ) {
     this.jobModel = jobModel
-    this.jobHandler = new jobHandler()
+    this.jobHandler = jobHandler
 
     this.jobName = `${this.jobModel.id}_${this.jobModel.name}`
   }
@@ -78,7 +78,7 @@ export class Runner implements RunnerInterface {
   private async exec() {
     this.logger.debug(`Scheduler - Job "${this.jobName}" started.`)
     const data = this.jobModel.data ? JSON.parse(JSON.stringify(this.jobModel.data)) : undefined
-    await this.jobHandler.handle(data)
+    this.jobHandler.handle(data)
     this.logger.debug(`Scheduler - Job "${this.jobName}" finished.`)
   }
 

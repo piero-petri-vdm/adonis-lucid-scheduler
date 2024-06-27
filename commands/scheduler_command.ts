@@ -32,16 +32,6 @@ export default class MakeJob extends BaseCommand {
     const path = this.app.rcFile.directories.jobs || 'app/jobs'
 
     const codemods = await this.createCodemods()
-
-    codemods.updateRcFile((rcFile) => rcFile)
-
-    this.generator
-      .addFile(this.name, { pattern: 'pascalcase', form: 'singular' })
-      .stub(stub)
-      .destinationDir(path || 'app/Jobs')
-      .useMustache()
-      .appRoot(this.app.cliCwd || this.app.appRoot)
-
-    await this.generator.run()
+    await codemods.makeUsingStub(this.app.appRoot.toString(), path, { stub })
   }
 }

@@ -5,7 +5,9 @@ import { LoggerConfig } from '@adonisjs/core/types/logger'
 import { DBJobModel } from '#src/job_model'
 import { Runner } from '#src/runner'
 import { timeMatches } from '#src/utils'
-import { JobMapType, SchedulerConfig, SchedulerInterface } from '#types/index'
+import { JobMapType } from '#types/index'
+
+import { SchedulerConfig, SchedulerInterface } from '#types/index'
 import { Database } from '@adonisjs/lucid/database'
 
 export class Scheduler implements SchedulerInterface {
