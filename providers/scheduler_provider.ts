@@ -1,7 +1,7 @@
 import { SchedulerConfig } from '#types/index'
 import { ApplicationService } from '@adonisjs/core/types'
 import { scheduleJob } from 'node-schedule'
-import { JobHandler } from '@adonisjs/core/types'
+import { JobHandler } from '#types/index'
 /**
  * Scheduler service provider
  */

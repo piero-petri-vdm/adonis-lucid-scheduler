@@ -8,7 +8,7 @@ import { LoggerConfig } from '@adonisjs/core/types/logger'
 import { DBJobModel } from '#src/job_model'
 import { RunnerInterface } from '#types/index'
 import { Database } from '@adonisjs/lucid/database'
-import { JobHandler } from '@adonisjs/core/types'
+import { JobHandler } from '#types/index'
 
 export class Runner implements RunnerInterface {
   protected jobName: string
